@@ -1,0 +1,31 @@
+version: 2.1
+jobs:
+  build:
+    executor: python/default
+    parallelism: 5
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - deps-{{ checksum "poetry.lock" }}
+      - python/install-packages:
+          pkg-manager: poetry
+      - save_cache:
+          key: deps-{{ checksum "poetry.lock" }}
+          paths:
+            - /home/circleci/.cache/pypoetry/virtualenvs
+      - run:
+          command: |
+            circleci tests glob "tap-xactly/tests/test_*"
+            circleci tests split --split-by=timings --timings-type=classname
+            poetry run pytest --cov-report term-missing --cov=tap-xactly tests/ --junitxml=test_results/pytest/results.xml
+            poetry run coveralls
+          name: Run Tests and Upload Coverage
+      - store_test_results:
+          path: test_results/pytest
+orbs:
+  python: circleci/python@1.4.0
+workflows:
+  main:
+    jobs:
+      - build

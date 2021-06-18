@@ -1,0 +1,34 @@
+[tool.poetry]
+name = "tap-xactly"
+version = "0.1.0"
+description = "A Singer Tap by Mashey"
+authors = ["Steven <steven.a.anderson2012@gmail.com>"]
+packages = [
+    { include = "tap_xactly" }
+]
+
+[tool.poetry.dependencies]
+python = "^3.8"
+requests = "^2.25.1"
+singer-python = "^5.9.1"
+JayDeBeApi = "^1.2.3"
+
+[tool.poetry.dev-dependencies]
+coverage = "^5.4"
+pylint = "^2.6.0"
+pytest = "^6.2.2"
+pytest-cov = "^2.11.1"
+coveralls = "^3.0.0"
+pytest-mock = "^3.5.1"
+pytest-vcr = "^1.0.2"
+python-dotenv = "^0.15.0"
+vcrpy = "^4.1.1"
+mypy = "^0.902"
+black = "^21.5b2"
+
+[tool.poetry.scripts]
+tap-xactly = 'tap_xactly:main'
+
+[build-system]
+requires = ["poetry-core>=1.0.0"]
+build-backend = "poetry.core.masonry.api"
