@@ -25,6 +25,7 @@ python-dotenv = "^0.15.0"
 vcrpy = "^4.1.1"
 mypy = "^0.902"
 black = "^21.5b2"
+pre-commit = "^2.13.0"
 
 [tool.poetry.scripts]
 tap-xactly = 'tap_xactly:main'
