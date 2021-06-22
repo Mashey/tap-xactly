@@ -1,7 +1,8 @@
 version: 2.1
 jobs:
   build:
-    executor: python/default
+    docker:
+      - image: circleci/python:latest
     parallelism: 5
     steps:
       - checkout
