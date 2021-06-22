@@ -1,8 +1,7 @@
 version: 2.1
 jobs:
   build:
-    docker:
-      - image: rappdw/docker-java-python
+    executor: python/default
     parallelism: 5
     steps:
       - checkout
