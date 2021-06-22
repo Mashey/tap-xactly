@@ -106,3 +106,4 @@ singer-check-tap-data
 state.json
 catalog.json
 test.json
+.mypy_cache
