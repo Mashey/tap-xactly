@@ -2,7 +2,7 @@ version: 2.1
 jobs:
   build:
     docker:
-      - image: circleci/python:latest
+      - image: rappdw/docker-java-python
     parallelism: 5
     steps:
       - checkout
@@ -17,7 +17,6 @@ jobs:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           command: |
-            sudo apt install openjdk-11-jdk
             circleci tests glob "tap-xactly/tests/*_test.py"
             circleci tests split --split-by=timings --timings-type=classname
             poetry run pytest --cov-report term-missing --cov=tap-xactly tests/ --junitxml=test_results/pytest/results.xml
