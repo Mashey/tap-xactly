@@ -3,7 +3,7 @@ jobs:
   build:
     # executor: python/default
     docker:
-      image: openkbs/jdk-mvn-py3
+      - image: openkbs/jdk-mvn-py3
     parallelism: 5
     steps:
       - checkout
