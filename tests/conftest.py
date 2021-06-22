@@ -19,5 +19,10 @@ def config():
 
 
 @pytest.fixture
+def state():
+    return {}
+
+
+@pytest.fixture
 def client(config):
     return XactlyClient(config)

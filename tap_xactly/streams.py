@@ -32,17 +32,12 @@ class FullTableStream(Stream):
 class XcPosRelTypeHist(IncrementalStream):
     table_name = "xc_pos_rel_type_hist"
     tap_stream_id = "xc_pos_rel_type_hist"
-    key_properties = ["ENDPOINT1_id"]
+    key_properties = ["POS_REL_TYPE_ID"]
     object_type = "XC_POS_REL_TYPE_HIST"
-    valid_replication_keys = ["modified_date"]
-    replication_key = "modified_date"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
 
     def sync(self, *args, **kwargs):
-        ## This is where to setup iteration over each end point
-        # response = self.client.fetch_ENDPOINT1s(ENDPOINT1_PARAMETERS)
-        # ENDPOINT1s = response.get('data', {}).get('ENDPOINT1_list', [])
-        # for ENDPOINT1 in ENDPOINT1s:
-        #   yield ENDPOINT1
         pass
 
 
