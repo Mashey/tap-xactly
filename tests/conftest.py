@@ -25,4 +25,6 @@ def state():
 
 @pytest.fixture
 def client(config):
-    return XactlyClient(config)
+    client = XactlyClient(config)
+    client.setup_connection()
+    return client
