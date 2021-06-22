@@ -26,6 +26,7 @@ vcrpy = "^4.1.1"
 mypy = "^0.902"
 black = "^21.5b2"
 pre-commit = "^2.13.0"
+types-python-dateutil = "^0.1.4"
 
 [tool.poetry.scripts]
 tap-xactly = 'tap_xactly:main'
