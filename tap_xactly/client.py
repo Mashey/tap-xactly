@@ -14,21 +14,27 @@ class XactlyClient:
         self._password = config["password"]
         self._client_id = config["client_id"]
         self._consumer = config["consumer"]
-        self._client = self.setup_connection()
-        self._sql = self._client.cursor()
+        self._client = None
+        self._sql = None
 
     def setup_connection(self) -> Connection:
-        connection = jaydebeapi.connect(
+        self._client = jaydebeapi.connect(
             "com.xactly.connect.jdbc.Driver",
             "jdbc:xactly://api.xactlycorp.com:443/api?"
             + f"sslVerifyServer=true&clientId={self._client_id}&consumer={self._consumer}",
             [self._user, self._password],
             "./xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar",
         )
-        return connection
+        self._sql = self._client.cursor()
+
+    def close_connection(self) -> None:
+        self._sql.close()
+        self._client.close()
 
     @property
     def is_connected(self) -> bool:
+        if self._client is None:
+            return False
         return not self._client.jconn.isClosed()
 
     def query_database(
