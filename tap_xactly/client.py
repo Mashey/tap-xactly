@@ -1,6 +1,5 @@
-import json
-import requests
 import jaydebeapi
+from jaydebeapi import Connection
 
 # Build the Data Resource Service Here as a class with each endpoint as a function.
 # Do not iterate over paginated endpoints in this file.  Below are just samples
@@ -8,19 +7,23 @@ import jaydebeapi
 
 class XactlyClient:
     def __init__(self, config):
-        self.XACTLY_USER = config["XACTLY_USER"]
-        self.XACTLY_PASSWORD = config["XACTLY_PASSWORD"]
-        self.XACTLY_CLIENTID = config["XACTLY_CLIENTID"]
-        self.XACTLY_CONSUMER = config["XACTLY_CONSUMER"]
-        self.client = self.setup_connection()
-        self.sql = self.client.cursor()
+        self._user = config["user"]
+        self._password = config["password"]
+        self._client_id = config["client_id"]
+        self._consumer = config["consumer"]
+        self._client = self.setup_connection()
+        self._sql = self._client.cursor()
 
-    def setup_connection(self):
+    def setup_connection(self) -> Connection:
         connection = jaydebeapi.connect(
             "com.xactly.connect.jdbc.Driver",
-            f"jdbc:xactly://api.xactlycorp.com:443/api?sslVerifyServer=true&clientId={self.XACTLY_CLIENTID}&consumer={self.XACTLY_CONSUMER}",
-            [self.XACTLY_USER, self.XACTLY_PASSWORD],
+            "jdbc:xactly://api.xactlycorp.com:443/api?"
+            + f"sslVerifyServer=true&clientId={self._client_id}&consumer={self._consumer}",
+            [self._user, self._password],
             "./xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar",
         )
-
         return connection
+
+    @property
+    def is_connected(self) -> bool:
+        return not self._client.jconn.isClosed()

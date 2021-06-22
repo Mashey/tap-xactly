@@ -4,7 +4,7 @@ from tap_xactly.discovery import discover
 from tap_xactly.sync import sync
 
 # Fill in any required config keys from the config.json here
-REQUIRED_CONFIG_KEYS = [...]
+REQUIRED_CONFIG_KEYS = ["user", "password", "client_id", "consumer"]
 
 LOGGER = singer.get_logger()
 
@@ -21,5 +21,5 @@ def main():
         sync(args.config, args.state, catalog)
 
 
-if __name__ == '__main__':
+if __name__ == "__main__":
     main()
