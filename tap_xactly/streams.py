@@ -76,6 +76,15 @@ class XcPosRelTypeHist(IncrementalStream):
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosRelations(IncrementalStream):
+    tap_stream_id = "xc_pos_relations"
+    key_properties = ["ID"]
+    object_type = "XC_POS_RELATION"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
+    "xc_pos_relations": XcPosRelations,
 }
