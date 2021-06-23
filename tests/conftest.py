@@ -4,6 +4,7 @@ import os
 import dotenv
 import pytest
 from tap_xactly.client import XactlyClient
+from tap_xactly.discovery import discover
 
 dotenv.load_dotenv()
 
@@ -11,7 +12,7 @@ dotenv.load_dotenv()
 @pytest.fixture
 def config():
     return {
-        "xactly_user": os.getenv("XACTLY_USER"),
+        "user": os.getenv("XACTLY_USER"),
         "password": os.getenv("PASSWORD"),
         "client_id": os.getenv("CLIENT_ID"),
         "consumer": os.getenv("CONSUMER"),
@@ -28,3 +29,9 @@ def client(config):
     client = XactlyClient(config)
     client.setup_connection()
     return client
+
+
+@pytest.fixture
+def catalog():
+
+    return discover()

@@ -1,53 +1,105 @@
+import time
 import singer
-from singer import Transformer, metadata
-
-# The client name needs to be filled in here
-from tap_xactly.client import XactlyClient
+from singer import Transformer
 from tap_xactly.streams import STREAMS
+from tap_xactly.client import XactlyClient
+
 
 LOGGER = singer.get_logger()
 
 
 def sync(config, state, catalog):
-    # Any client required PARAMETERS to hit the endpoint
+    sync_metrics = {"total_records": [], "stream_rps": []}
     client = XactlyClient(config)
 
     with Transformer() as transformer:
-        for stream in catalog.get_selected_streams(state):
-            tap_stream_id = stream.tap_stream_id
-            stream_obj = STREAMS[tap_stream_id](client, state)
-            # replication_key = stream_obj.replication_key
-            stream_schema = stream.schema.to_dict()
-            stream_metadata = metadata.to_map(stream.metadata)
+        for catalog_stream in catalog.get_selected_streams(state):
+            # Metrics variables
+            stream_start = time.perf_counter()
+            record_count = 0
 
-            LOGGER.info("Staring sync for stream: %s", tap_stream_id)
+            stream = STREAMS[catalog_stream.tap_stream_id](
+                client, state, catalog_stream
+            )
 
-            state = singer.set_currently_syncing(state, tap_stream_id)
+            LOGGER.info(f"Staring sync for stream: {stream.tap_stream_id}")
+
+            state = singer.set_currently_syncing(state, stream.tap_stream_id)
             singer.write_state(state)
-
             singer.write_schema(
-                tap_stream_id,
-                stream_schema,
-                stream_obj.key_properties,
+                stream.tap_stream_id,
+                stream.schema,
+                stream.key_properties,
                 stream.replication_key,
             )
 
-            for record in stream_obj.sync():
+            for record in stream.sync():
                 transformed_record = transformer.transform(
-                    record, stream_schema, stream_metadata
+                    record,
+                    stream.schema,
+                    stream.metadata,
                 )
                 LOGGER.info(f"Writing record: {transformed_record}")
                 singer.write_record(
-                    tap_stream_id,
+                    stream.tap_stream_id,
                     transformed_record,
                 )
+                record_count += 1
 
-            # If there is a Bookmark or state based key to store
-            # state = singer.clear_bookmark(state, tap_stream_id, BOOKMARK_KEY)
-            # singer.write_state(
-            #     state,
-            #     tap_stream_id,
-            # )
+                singer.write_bookmark(
+                    state,
+                    stream.tap_stream_id,
+                    stream.replication_key,
+                    record[stream.replication_key],
+                )
+
+            if record_count == 0:
+                LOGGER.info("No Records to update bookmarks.")
+
+            stream_stop = time.perf_counter()
+
+            sync_metrics["total_records"].append(record_count)
+            info, rps = metrics(stream_start, stream_stop, record_count)
+            sync_metrics["stream_rps"].append(rps)
+            LOGGER.info(f"{info}")
+            singer.write_bookmark(state, stream.tap_stream_id, "metrics", info)
+            singer.write_state(state)
 
     state = singer.set_currently_syncing(state, None)
+    LOGGER.info(
+        f"""
+        Total Records: {sum(sync_metrics["total_records"])}
+        Overall RPS: {overall_metrics(sync_metrics["total_records"], sync_metrics["stream_rps"])}
+        """
+    )
+    singer.write_bookmark(
+        state,
+        "Overall",
+        "metrics",
+        f"""
+        Records: {sum(sync_metrics['total_records'])}
+        RPS: {overall_metrics(sync_metrics['total_records'], sync_metrics['stream_rps'])}
+        """,
+    )
     singer.write_state(state)
+
+
+def metrics(start: float, end: float, records: int):
+    info = f"""
+            Stream runtime: {get_elapsed_time(end, start)} seconds
+            Records: {records}
+            RPS: {average_rps(records, get_elapsed_time(end, start))}
+            """
+    return info, average_rps(records, get_elapsed_time(end, start))
+
+
+def overall_metrics(records: list, rps_list: list) -> float:
+    return sum(rps_list) / len(records)
+
+
+def get_elapsed_time(end: float, start: float) -> float:
+    return end - start
+
+
+def average_rps(records: int, elapsed_time: float) -> float:
+    return records / elapsed_time

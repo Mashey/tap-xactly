@@ -1,12 +1,13 @@
 from typing import List
 import singer
+from singer import metadata
 
 from tap_xactly.client import XactlyClient
 
 LOGGER = singer.get_logger()
 
 
-class Stream:
+class Stream:  # pylint: disable=too-few-public-methods
     tap_stream_id = ""
     key_properties: List[str] = [""]
     replication_method = ""
@@ -16,9 +17,11 @@ class Stream:
     limit = 1000
     selected = True
 
-    def __init__(self, client: XactlyClient, state: dict):
+    def __init__(self, client: XactlyClient, state: dict, stream):
         self.client = client
         self.state = state
+        self.schema = stream.schema.to_dict()
+        self.metadata = metadata.to_map(stream.metadata)
 
     def sync(self):
         bookmark_value = singer.get_bookmark(
@@ -29,6 +32,7 @@ class Stream:
         )
         offset = 0
         last_query_record_count = self.limit
+        self.client.setup_connection()
         while last_query_record_count >= self.limit:
             try:
                 record_count = 0
@@ -47,7 +51,7 @@ class Stream:
                 offset += self.limit + 1
                 last_query_record_count = record_count
 
-            except Exception as ex:
+            except Exception as ex:  # pylint: disable=broad-except
                 LOGGER.warning(f"Client error {ex} :: Closing SQL and Connection.")
                 self.client.close_connection()
                 LOGGER.info("Restarting Client")
@@ -60,15 +64,15 @@ class Stream:
         LOGGER.info(f"Creating bookmark for {self.tap_stream_id} stream")
 
 
-class IncrementalStream(Stream):
+class IncrementalStream(Stream):  # pylint: disable=too-few-public-methods
     replication_method = "INCREMENTAL"
 
 
-class FullTableStream(Stream):
+class FullTableStream(Stream):  # pylint: disable=too-few-public-methods
     replication_method = "FULL_TABLE"
 
 
-class XcPosRelTypeHist(IncrementalStream):
+class XcPosRelTypeHist(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_pos_rel_type_hist"
     key_properties = ["POS_REL_TYPE_ID"]
     object_type = "XC_POS_REL_TYPE_HIST"
@@ -76,7 +80,7 @@ class XcPosRelTypeHist(IncrementalStream):
     replication_key = "MODIFIED_DATE"
 
 
-class XcPosRelations(IncrementalStream):
+class XcPosRelations(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_pos_relations"
     key_properties = ["ID"]
     object_type = "XC_POS_RELATION"
@@ -84,7 +88,16 @@ class XcPosRelations(IncrementalStream):
     replication_key = "MODIFIED_DATE"
 
 
+class XcAttainmentMeasure(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_attainment_measure"
+    key_properties = ["ATTAINMENT_MEASURE_ID"]
+    object_type = "XC_ATTAINMENT_MEASURE"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
+    "xc_attainment_measure": XcAttainmentMeasure,
 }
