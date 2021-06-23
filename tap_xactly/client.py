@@ -1,26 +1,76 @@
-import json
-import requests
+from typing import List, Dict
 import jaydebeapi
+from jaydebeapi import Connection
 
-# Build the Data Resource Service Here as a class with each endpoint as a function.
-# Do not iterate over paginated endpoints in this file.  Below are just samples
+
+import singer
+
+LOGGER = singer.get_logger()
 
 
 class XactlyClient:
     def __init__(self, config):
-        self.XACTLY_USER = config["XACTLY_USER"]
-        self.XACTLY_PASSWORD = config["XACTLY_PASSWORD"]
-        self.XACTLY_CLIENTID = config["XACTLY_CLIENTID"]
-        self.XACTLY_CONSUMER = config["XACTLY_CONSUMER"]
-        self.client = self.setup_connection()
-        self.sql = self.client.cursor()
+        self._user = config["user"]
+        self._password = config["password"]
+        self._client_id = config["client_id"]
+        self._consumer = config["consumer"]
+        self._client = None
+        self._sql = None
 
-    def setup_connection(self):
-        connection = jaydebeapi.connect(
+    def setup_connection(self) -> Connection:
+        self._client = jaydebeapi.connect(
             "com.xactly.connect.jdbc.Driver",
-            f"jdbc:xactly://api.xactlycorp.com:443/api?sslVerifyServer=true&clientId={self.XACTLY_CLIENTID}&consumer={self.XACTLY_CONSUMER}",
-            [self.XACTLY_USER, self.XACTLY_PASSWORD],
+            "jdbc:xactly://api.xactlycorp.com:443/api?"
+            + f"sslVerifyServer=true&clientId={self._client_id}&consumer={self._consumer}",
+            [self._user, self._password],
             "./xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar",
         )
+        self._sql = self._client.cursor()
 
-        return connection
+    def close_connection(self) -> None:
+        self._sql.close()
+        self._client.close()
+
+    @property
+    def is_connected(self) -> bool:
+        if self._client is None:
+            return False
+        return not self._client.jconn.isClosed()
+
+    def query_database(
+        self,
+        table_name: str,
+        primary_key: str,
+        limit=1000,
+        offset=0,
+        limit_key="modified_date",
+        limit_key_value="1970-01-11T00:00:01Z",
+    ) -> List[Dict]:
+
+        row_count = 0
+
+        LOGGER.info("Querying DB")
+        self._sql.execute(
+            "SELECT * "
+            + f"FROM {table_name} "
+            + f"WHERE {limit_key} >= {limit_key_value} "
+            + f"ORDER BY {limit_key}, {primary_key} "
+            + f"LIMIT {limit} OFFSET {offset}"
+        )
+
+        LOGGER.info("Query Complete.  Starting rows")
+        rows = []
+
+        results = self._sql.fetchall()
+        columns = [key[0] for key in self._sql.description]
+
+        for row in results:
+            record = {}
+            for idx, val in enumerate(row):
+                if "java.time" in type(val).__name__:
+                    val = str(val)
+                record[columns[idx]] = val
+            rows.append(record)
+            row_count += 1
+        LOGGER.info(f"Row count = {row_count}")
+        return rows
