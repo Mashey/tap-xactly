@@ -1,0 +1,92 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "ATTAINMENT_MEASURE_ID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "DESCRIPTION": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "PERIOD_TYPE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFFECTIVE_START_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFFECTIVE_END_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MASTER_ATTAINMENT_MEASURE_ID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "HISTORY_UUID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}
