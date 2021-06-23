@@ -11,7 +11,7 @@ dotenv.load_dotenv()
 @pytest.fixture
 def config():
     return {
-        "user": os.getenv("USER"),
+        "xactly_user": os.getenv("XACTLY_USER"),
         "password": os.getenv("PASSWORD"),
         "client_id": os.getenv("CLIENT_ID"),
         "consumer": os.getenv("CONSUMER"),

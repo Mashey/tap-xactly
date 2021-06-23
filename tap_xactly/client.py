@@ -10,7 +10,7 @@ LOGGER = singer.get_logger()
 
 class XactlyClient:
     def __init__(self, config):
-        self._user = config["user"]
+        self._user = config["xactly_user"]
         self._password = config["password"]
         self._client_id = config["client_id"]
         self._consumer = config["consumer"]
