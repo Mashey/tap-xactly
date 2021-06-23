@@ -4,8 +4,9 @@ from tap_xactly.streams import XcAttainmentMeasure, XcPosRelTypeHist, STREAMS
 
 
 @pytest.fixture
-def xc_pos_rel_type_hist_obj(client, state):
-    return XcPosRelTypeHist(client, state)
+def xc_pos_rel_type_hist_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosRelTypeHist.tap_stream_id)
+    return XcPosRelTypeHist(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -39,8 +40,9 @@ def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
 
 
 @pytest.fixture
-def xc_attainment_measure_obj(client, state):
-    return XcAttainmentMeasure(client, state)
+def xc_attainment_measure_obj(client, state, catalog):
+    stream = catalog.get_stream(XcAttainmentMeasure.tap_stream_id)
+    return XcAttainmentMeasure(client, state, stream)
 
 
 def test_xc_attainment_measure(xc_attainment_measure_obj):

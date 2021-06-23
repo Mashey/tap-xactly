@@ -4,6 +4,7 @@ import os
 import dotenv
 import pytest
 from tap_xactly.client import XactlyClient
+from tap_xactly.discovery import discover
 
 dotenv.load_dotenv()
 
@@ -28,3 +29,9 @@ def client(config):
     client = XactlyClient(config)
     client.setup_connection()
     return client
+
+
+@pytest.fixture
+def catalog():
+
+    return discover()

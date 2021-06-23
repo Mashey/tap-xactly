@@ -1,5 +1,6 @@
 from typing import List
 import singer
+from singer import metadata
 
 from tap_xactly.client import XactlyClient
 
@@ -16,9 +17,11 @@ class Stream:  # pylint: disable=too-few-public-methods
     limit = 1000
     selected = True
 
-    def __init__(self, client: XactlyClient, state: dict):
+    def __init__(self, client: XactlyClient, state: dict, stream):
         self.client = client
         self.state = state
+        self.schema = stream.schema.to_dict()
+        self.metadata = metadata.to_map(stream.metadata)
 
     def sync(self):
         bookmark_value = singer.get_bookmark(
@@ -29,9 +32,9 @@ class Stream:  # pylint: disable=too-few-public-methods
         )
         offset = 0
         last_query_record_count = self.limit
+        self.client.setup_connection()
         while last_query_record_count >= self.limit:
             try:
-                self.client.setup_connection()
                 record_count = 0
                 records = self.client.query_database(
                     self.tap_stream_id,
