@@ -1,0 +1,128 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "QUOTA_ASSIGNMENT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "OBJECT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "ASSIGNMENT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "ASSIGNMENT_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ASSIGNMENT_TYPE": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT_UNIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFFECTIVE_START_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFFECTIVE_END_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "DESCRIPTION": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

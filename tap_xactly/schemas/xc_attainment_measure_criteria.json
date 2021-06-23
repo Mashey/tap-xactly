@@ -1,0 +1,74 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "ATTAINMENT_MEASURE_CRITERIA_ID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CRITERIA_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "ATTAINMENT_MEASURE_ID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "TYPE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "HISTORY_UUID": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

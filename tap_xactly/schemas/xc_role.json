@@ -1,0 +1,80 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "ROLE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "DESCR": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ROLE_TYPE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

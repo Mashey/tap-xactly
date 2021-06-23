@@ -1,0 +1,140 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "QUOTA_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "OBJECT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "DESCRIPTION": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "QUOTA_VALUE": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_VALUE_UNIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_VALUE_UNIT_TYPE_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "QUOTA_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_PERIOD_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "QUOTA_INTERVAL_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_INTERVAL_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "SOURCE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CLASSIFICATION_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CLASSIFICATION_TYPE": {
+            "type": [
+                "number",
+                "null"
+            ]
+        }
+    }
+}

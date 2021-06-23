@@ -1,0 +1,362 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "CREDIT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PERIOD_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "AMOUNT": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT_UNIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT_DISPLAY_SYMBOL": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "PARTICIPANT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARTICIPANT_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "POSITION_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ORDER_ITEM_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "ITEM_CODE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ORDER_CODE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "RULE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "RULE_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_PROCESSED": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ROLLABLE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "SOURCE_CREDIT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "SRC_POS_RELATION_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREDIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREDIT_TYPE_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_HELD": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "RELEASE_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "REASON_CODE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "REASON_CODE_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "ROLLABLE_ON_REPORTING": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "PRODUCT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PRODUCT_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CUSTOMER_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CUSTOMER_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "GEOGRAPHY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "GEOGRAPHY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "TRANS_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "BATCH_NUMBER": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "SUB_BATCH_NUMBER": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EVER_ON_HOLD": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "RELEASE_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "ESTIMATED_REL_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "BUSINESS_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "RUN_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "INCENTIVE_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "EFF_PARTICIPANT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFF_POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PLAN_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PLAN_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "SOURCE_POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "SUB_PART_KEY": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MGR_EFF_POS_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MGR_MASTER_POS_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MGR_EFF_PART_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        }
+    }
+}

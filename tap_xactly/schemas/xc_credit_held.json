@@ -1,0 +1,98 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "CREDIT_HELD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREDIT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "IS_HELD": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "HELD_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "RELEASE_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "RUN_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "TRANS_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        }
+    }
+}
