@@ -6,7 +6,7 @@ from tap_xactly.client import XactlyClient
 LOGGER = singer.get_logger()
 
 
-class Stream:
+class Stream:  # pylint: disable=too-few-public-methods
     tap_stream_id = ""
     key_properties: List[str] = [""]
     replication_method = ""
@@ -31,6 +31,7 @@ class Stream:
         last_query_record_count = self.limit
         while last_query_record_count >= self.limit:
             try:
+                self.client.setup_connection()
                 record_count = 0
                 records = self.client.query_database(
                     self.tap_stream_id,
@@ -47,7 +48,7 @@ class Stream:
                 offset += self.limit + 1
                 last_query_record_count = record_count
 
-            except Exception as ex:
+            except Exception as ex:  # pylint: disable=broad-except
                 LOGGER.warning(f"Client error {ex} :: Closing SQL and Connection.")
                 self.client.close_connection()
                 LOGGER.info("Restarting Client")
@@ -60,15 +61,15 @@ class Stream:
         LOGGER.info(f"Creating bookmark for {self.tap_stream_id} stream")
 
 
-class IncrementalStream(Stream):
+class IncrementalStream(Stream):  # pylint: disable=too-few-public-methods
     replication_method = "INCREMENTAL"
 
 
-class FullTableStream(Stream):
+class FullTableStream(Stream):  # pylint: disable=too-few-public-methods
     replication_method = "FULL_TABLE"
 
 
-class XcPosRelTypeHist(IncrementalStream):
+class XcPosRelTypeHist(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_pos_rel_type_hist"
     key_properties = ["POS_REL_TYPE_ID"]
     object_type = "XC_POS_REL_TYPE_HIST"
@@ -76,6 +77,15 @@ class XcPosRelTypeHist(IncrementalStream):
     replication_key = "MODIFIED_DATE"
 
 
+class XcAttainmentMeasure(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_attainment_measure"
+    key_properties = ["ATTAINMENT_MEASURE_ID"]
+    object_type = "XC_ATTAINMENT_MEASURE"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
+    "xc_attainment_measure": XcAttainmentMeasure,
 }
