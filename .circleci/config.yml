@@ -16,9 +16,9 @@ jobs:
             - /home/circleci/.cache/pypoetry/virtualenvs
       - run:
           command: |
-            circleci tests glob "tap-xactly/tests/test_*"
+            circleci tests glob "tap-xactly/tests/*_test.py"
             circleci tests split --split-by=timings --timings-type=classname
-            poetry run pytest --cov-report term-missing --cov=tap-xactly tests/ --junitxml=test_results/pytest/results.xml 
+            poetry run pytest --cov-report term-missing --cov=tap-xactly tests/ --junitxml=test_results/pytest/results.xml
             poetry run coveralls
           name: Run Tests and Upload Coverage
       - store_test_results:
