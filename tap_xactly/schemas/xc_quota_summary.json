@@ -1,0 +1,80 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARTICIPANT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARTICIPANT_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "POSITION_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "EFF_POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "QUOTA_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "AMOUNT_UNIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "BUSINESS_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "TOTAL_AMOUNT": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AS_OF_PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        }
+    }
+}

@@ -1,0 +1,92 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "CREDIT_ADJUSTMENT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREDIT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "PERIOD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "AMOUNT_UNIT_TYPE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "REASON_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}

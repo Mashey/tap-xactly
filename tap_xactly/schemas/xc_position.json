@@ -1,0 +1,158 @@
+{
+    "type": [
+        "object",
+        "null"
+    ],
+    "properties": {
+        "POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "VERSION": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "DESCR": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "INCENT_ST_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "INCENT_END_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_ACTIVE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREATED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREATED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "MODIFIED_BY_NAME": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "TITLE_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "POS_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARENT_RECORD_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARENT_POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "PARTICIPANT_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "EFFECTIVE_START_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "EFFECTIVE_END_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "IS_MASTER": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "MASTER_POSITION_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "BUSINESS_GROUP_ID": {
+            "type": [
+                "number",
+                "null"
+            ]
+        },
+        "CREDIT_START_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        },
+        "CREDIT_END_DATE": {
+            "type": [
+                "string",
+                "null"
+            ]
+        }
+    }
+}
