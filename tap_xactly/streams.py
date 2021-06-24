@@ -47,7 +47,7 @@ class Stream:  # pylint: disable=too-few-public-methods
                     record_count += 1
                     yield record
 
-                offset += self.limit + 1
+                offset += self.limit
                 last_query_record_count = record_count
 
             except Exception as ex:  # pylint: disable=broad-except
