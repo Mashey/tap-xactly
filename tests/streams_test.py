@@ -4,6 +4,7 @@ from tap_xactly.streams import (
     XcPosRelTypeHist,
     XcPosRelations,
     XcPosRelationsHist,
+    XcPosTitleAssignment,
     XcAttainmentMeasure,
     XcAttainmentMeasureCriteria,
     STREAMS,
@@ -26,6 +27,12 @@ def xc_pos_relations_obj(client, state, catalog):
 def xc_pos_relations_hist_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosRelationsHist.tap_stream_id)
     return XcPosRelationsHist(client, state, stream)
+
+
+@pytest.fixture
+def xc_pos_title_assignment_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosTitleAssignment.tap_stream_id)
+    return XcPosTitleAssignment(client, state, stream)
 
 
 @pytest.fixture
@@ -127,6 +134,35 @@ def test_xc_pos_relations_hist(xc_pos_relations_hist_obj):
         assert "MODIFIED_BY_NAME" in record
         assert "FROM_POS_NAME" in record
         assert "TO_POS_NAME" in record
+
+
+def test_xc_pos_title_assignment(xc_pos_title_assignment_obj):
+    assert xc_pos_title_assignment_obj.tap_stream_id == "xc_pos_title_assignment"
+    assert xc_pos_title_assignment_obj.key_properties == ["POS_TITLE_ASSIGNMENT_ID"]
+    assert xc_pos_title_assignment_obj.object_type == "XC_POS_TITLE_ASSIGNMENT"
+    assert xc_pos_title_assignment_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_pos_title_assignment_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_pos_title_assignment" in STREAMS
+    assert STREAMS["xc_pos_title_assignment"] == XcPosTitleAssignment
+
+    records = list(xc_pos_title_assignment_obj.sync())
+    assert len(records) > 0
+
+    for record in records:
+        assert "POS_TITLE_ASSIGNMENT_ID" in record
+        assert "VERSION" in record
+        assert "TITLE_ID" in record
+        assert "TITLE_NAME" in record
+        assert "POSITION_ID" in record
+        assert "POSITION_NAME" in record
+        assert "IS_ACTIVE" in record
+        assert "CREATED_DATE" in record
+        assert "CREATED_BY_ID" in record
+        assert "CREATED_BY_NAME" in record
+        assert "MODIFIED_DATE" in record
+        assert "MODIFIED_BY_ID" in record
+        assert "MODIFIED_BY_NAME" in record
 
 
 def test_xc_attainment_measure(xc_attainment_measure_obj):

@@ -15,6 +15,8 @@ def test_client_query_database(client):
         "1970-09-28T00:45:22Z",
     )
 
+    assert len(response) == 10
+
     for row in response:
         assert "POS_REL_TYPE_ID" in row
         assert "OBJECT_ID" in row

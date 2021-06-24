@@ -33,5 +33,4 @@ def client(config):
 
 @pytest.fixture
 def catalog():
-
     return discover()
