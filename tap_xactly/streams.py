@@ -114,10 +114,19 @@ class XcAttainmentMeasureCriteria(
     replication_key = "MODIFIED_DATE"
 
 
+class XcCredit(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_credit"
+    key_properties = ["CREDIT_ID"]
+    object_type = "XC_CREDIT"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
     "xc_pos_relations_hist": XcPosRelationsHist,
     "xc_attainment_measure": XcAttainmentMeasure,
     "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
+    "xc_credit": XcCredit,
 }
