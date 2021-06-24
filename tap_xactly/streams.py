@@ -32,7 +32,6 @@ class Stream:  # pylint: disable=too-few-public-methods
         )
         offset = 0
         last_query_record_count = self.limit
-        self.client.setup_connection()
         while last_query_record_count >= self.limit:
             try:
                 record_count = 0
