@@ -53,7 +53,7 @@ class XactlyClient:
         self._sql.execute(
             "SELECT * "
             + f"FROM {table_name} "
-            + f"WHERE {limit_key} >= {limit_key_value} "
+            + f"WHERE {limit_key} >= '{limit_key_value}' "
             + f"ORDER BY {limit_key}, {primary_key} "
             + f"LIMIT {limit} OFFSET {offset}"
         )
