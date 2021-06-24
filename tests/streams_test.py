@@ -1,12 +1,29 @@
 # pylint: disable=redefined-outer-name
 import pytest
-from tap_xactly.streams import XcAttainmentMeasure, XcPosRelTypeHist, STREAMS
+from tap_xactly.streams import (
+    XcPosRelTypeHist,
+    XcPosRelations,
+    XcAttainmentMeasure,
+    STREAMS,
+)
 
 
 @pytest.fixture
 def xc_pos_rel_type_hist_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosRelTypeHist.tap_stream_id)
     return XcPosRelTypeHist(client, state, stream)
+
+
+@pytest.fixture
+def xc_pos_relations_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosRelations.tap_stream_id)
+    return XcPosRelations(client, state, stream)
+
+
+@pytest.fixture
+def xc_attainment_measure_obj(client, state, catalog):
+    stream = catalog.get_stream(XcAttainmentMeasure.tap_stream_id)
+    return XcAttainmentMeasure(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -39,10 +56,32 @@ def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
         assert "IS_MASTER" in record
 
 
-@pytest.fixture
-def xc_attainment_measure_obj(client, state, catalog):
-    stream = catalog.get_stream(XcAttainmentMeasure.tap_stream_id)
-    return XcAttainmentMeasure(client, state, stream)
+def test_xc_pos_relations(xc_pos_relations_obj):
+    assert xc_pos_relations_obj.tap_stream_id == "xc_pos_relations"
+    assert xc_pos_relations_obj.key_properties == ["ID"]
+    assert xc_pos_relations_obj.object_type == "XC_POS_RELATION"
+    assert xc_pos_relations_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_pos_relations_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_pos_relations" in STREAMS
+    assert STREAMS["xc_pos_relations"] == XcPosRelations
+
+    records = list(xc_pos_relations_obj.sync())
+
+    for record in records:
+        assert "ID" in record
+        assert "VERSION" in record
+        assert "FROM_POS_ID" in record
+        assert "TO_POS_ID" in record
+        assert "POS_REL_TYPE_ID" in record
+        assert "CREATED_DATE" in record
+        assert "CREATED_BY_ID" in record
+        assert "CREATED_BY_NAME" in record
+        assert "MODIFIED_DATE" in record
+        assert "MODIFIED_BY_ID" in record
+        assert "MODIFIED_BY_NAME" in record
+        assert "FROM_POS_NAME" in record
+        assert "TO_POS_NAME" in record
 
 
 def test_xc_attainment_measure(xc_attainment_measure_obj):

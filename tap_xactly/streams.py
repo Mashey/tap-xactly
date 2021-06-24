@@ -80,6 +80,14 @@ class XcPosRelTypeHist(IncrementalStream):  # pylint: disable=too-few-public-met
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosRelations(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_pos_relations"
+    key_properties = ["ID"]
+    object_type = "XC_POS_RELATION"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcAttainmentMeasure(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_attainment_measure"
     key_properties = ["ATTAINMENT_MEASURE_ID"]
@@ -90,5 +98,6 @@ class XcAttainmentMeasure(IncrementalStream):  # pylint: disable=too-few-public-
 
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
+    "xc_pos_relations": XcPosRelations,
     "xc_attainment_measure": XcAttainmentMeasure,
 }
