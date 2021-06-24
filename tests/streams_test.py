@@ -249,7 +249,14 @@ def test_xc_credit(xc_credit_obj):  # pylint: disable=too-many-statements
     assert "xc_credit" in STREAMS
     assert STREAMS["xc_credit"] == XcCredit
 
-    records = list(xc_credit_obj.sync())
+    records = xc_credit_obj.client.query_database(
+        table_name="xc_credit",
+        primary_key="credit_id",
+        limit=5,
+        offset=0,
+        limit_key="MODIFIED_DATE",
+        limit_key_value="2021-05-21T00:52:18",
+    )
     assert len(records) > 0
 
     for record in records:
@@ -310,5 +317,5 @@ def test_xc_credit(xc_credit_obj):  # pylint: disable=too-many-statements
         assert "MODIFIED_BY_NAME" in record
         assert "SUB_PART_KEY" in record
         assert "MGR_EFF_POS_ID" in record
-        assert "MGR_MASTER_poS_ID" in record
+        assert "MGR_MASTER_POS_ID" in record
         assert "MGR_EFF_PART_ID" in record
