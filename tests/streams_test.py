@@ -4,6 +4,7 @@ from tap_xactly.streams import (
     XcPosRelTypeHist,
     XcPosRelations,
     XcAttainmentMeasure,
+    XcAttainmentMeasureCriteria,
     STREAMS,
 )
 
@@ -24,6 +25,12 @@ def xc_pos_relations_obj(client, state, catalog):
 def xc_attainment_measure_obj(client, state, catalog):
     stream = catalog.get_stream(XcAttainmentMeasure.tap_stream_id)
     return XcAttainmentMeasure(client, state, stream)
+
+
+@pytest.fixture
+def xc_attainment_measure_criteria_obj(client, state, catalog):
+    stream = catalog.get_stream(XcAttainmentMeasureCriteria.tap_stream_id)
+    return XcAttainmentMeasureCriteria(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -110,4 +117,40 @@ def test_xc_attainment_measure(xc_attainment_measure_obj):
         assert "EFFECTIVE_END_PERIOD_ID" in record
         assert "MASTER_ATTAINMENT_MEASURE_ID" in record
         assert "VERSION" in record
+        assert "HISTORY_UUID" in record
+
+
+def test_xc_attainment_measure_criteria(xc_attainment_measure_criteria_obj):
+    assert (
+        xc_attainment_measure_criteria_obj.tap_stream_id
+        == "xc_attainment_measure_criteria"
+    )
+    assert xc_attainment_measure_criteria_obj.key_properties == [
+        "ATTAINMENT_MEASURE_CRITERIA_ID"
+    ]
+    assert (
+        xc_attainment_measure_criteria_obj.object_type
+        == "XC_ATTAINMENT_MEASURE_CRITERIA"
+    )
+    assert xc_attainment_measure_criteria_obj.valid_replication_keys == [
+        "MODIFIED_DATE"
+    ]
+    assert xc_attainment_measure_criteria_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_attainment_measure_criteria" in STREAMS
+    assert STREAMS["xc_attainment_measure_criteria"] == XcAttainmentMeasureCriteria
+
+    records = list(xc_attainment_measure_criteria_obj.sync())
+
+    for record in records:
+        assert "ATTAINMENT_MEASURE_CRITERIA_ID" in record
+        assert "CRITERIA_ID" in record
+        assert "ATTAINMENT_MEASURE_ID" in record
+        assert "TYPE" in record
+        assert "NAME" in record
+        assert "IS_ACTIVE" in record
+        assert "CREATED_DATE" in record
+        assert "CREATED_BY_ID" in record
+        assert "MODIFIED_DATE" in record
+        assert "MODIFIED_BY_ID" in record
         assert "HISTORY_UUID" in record
