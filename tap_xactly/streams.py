@@ -22,33 +22,39 @@ class Stream:  # pylint: disable=too-few-public-methods
         self.state = state
         self.schema = stream.schema.to_dict()
         self.metadata = metadata.to_map(stream.metadata)
+        self.bookmark_date = "1970-01-11T00:00:01Z"
+        self.last_primary = 0
 
     def sync(self):
-        bookmark_value = singer.get_bookmark(
+        bookmark = singer.get_bookmark(
             self.state,
             self.tap_stream_id,
             self.replication_key,
-            "1970-01-11T00:00:01Z",
+            self.bookmark_date,
         )
-        offset = 0
+
         last_query_record_count = self.limit
         self.client.setup_connection()
         while last_query_record_count >= self.limit:
             try:
                 record_count = 0
                 records = self.client.query_database(
-                    self.tap_stream_id,
+                    table_name=self.tap_stream_id,
                     limit=self.limit,
-                    offset=offset,
                     primary_key=self.key_properties[0],
-                    limit_key=self.replication_key,
-                    limit_key_value=bookmark_value,
+                    bkmrk_primary_key=self.last_primary,
+                    replication_key=self.replication_key,
+                    bkmrk_date=bookmark,
                 )
                 for record in records:
+                    self.bookmark_date = record["MODIFIED_DATE"]
+                    self.last_primary = record[self.key_properties[0]]
+                    LOGGER.info(
+                        f"Bookmark: {self.bookmark_date}\n Last Primary: {self.last_primary}"
+                    )
                     record_count += 1
                     yield record
 
-                offset += self.limit + 1
                 last_query_record_count = record_count
 
             except Exception as ex:  # pylint: disable=broad-except

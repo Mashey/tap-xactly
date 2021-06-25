@@ -37,14 +37,15 @@ class XactlyClient:
             return False
         return not self._client.jconn.isClosed()
 
+    # pylint: disable=too-many-arguments
     def query_database(
         self,
         table_name: str,
+        limit: int,
         primary_key: str,
-        limit=1000,
-        offset=0,
-        limit_key="modified_date",
-        limit_key_value="1970-01-11T00:00:01Z",
+        bkmrk_primary_key: int,
+        replication_key: str,
+        bkmrk_date: str,
     ) -> List[Dict]:
 
         row_count = 0
@@ -53,9 +54,9 @@ class XactlyClient:
         self._sql.execute(
             "SELECT * "
             + f"FROM {table_name} "
-            + f"WHERE {limit_key} >= '{limit_key_value}' "
-            + f"ORDER BY {limit_key}, {primary_key} "
-            + f"LIMIT {limit} OFFSET {offset}"
+            + f"WHERE {replication_key} >= '{bkmrk_date}' AND {primary_key} > {bkmrk_primary_key} "
+            + f"ORDER BY {replication_key}, {primary_key} "
+            + f"LIMIT {limit}"
         )
 
         LOGGER.info("Query Complete.  Starting rows")
