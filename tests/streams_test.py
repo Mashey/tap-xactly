@@ -9,6 +9,7 @@ from tap_xactly.streams import (
     XcAttainmentMeasureCriteria,
     XcCredit,
     XcCreditAdjustment,
+    XcCreditHeld,
     STREAMS,
 )
 
@@ -59,6 +60,12 @@ def xc_credit_obj(client, state, catalog):
 def xc_credit_adjustment_obj(client, state, catalog):
     stream = catalog.get_stream(XcCreditAdjustment.tap_stream_id)
     return XcCreditAdjustment(client, state, stream)
+
+
+@pytest.fixture
+def xc_credit_held_obj(client, state, catalog):
+    stream = catalog.get_stream(XcCreditHeld.tap_stream_id)
+    return XcCreditHeld(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -178,3 +185,11 @@ def test_xc_credit_adjustment(
 
     assert "xc_credit_adjustment" in STREAMS
     assert STREAMS["xc_credit_adjustment"] == XcCreditAdjustment
+
+
+def test_xc_credit_held(xc_credit_held_obj):
+    assert xc_credit_held_obj.tap_stream_id == "xc_credit_held"
+    assert xc_credit_held_obj.key_properties == ["CREDIT_HELD_ID"]
+    assert xc_credit_held_obj.object_type == "XC_CREDIT_HELD"
+    assert xc_credit_held_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_credit_held_obj.replication_key == "MODIFIED_DATE"
