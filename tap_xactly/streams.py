@@ -49,9 +49,6 @@ class Stream:  # pylint: disable=too-few-public-methods
                 for record in records:
                     self.bookmark_date = record["MODIFIED_DATE"]
                     self.last_primary = record[self.key_properties[0]]
-                    LOGGER.info(
-                        f"Bookmark: {self.bookmark_date}\n Last Primary: {self.last_primary}"
-                    )
                     record_count += 1
                     yield record
 
