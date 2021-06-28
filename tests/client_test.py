@@ -8,8 +8,8 @@ def test_client_setup(client):
 def test_client_query_database(client):
     response = client.query_database(
         "xc_pos_rel_type_hist",
-        "pos_rel_type_id",
         10,
+        "pos_rel_type_id",
         0,
         "MODIFIED_DATE",
         "1970-09-28T00:45:22Z",
