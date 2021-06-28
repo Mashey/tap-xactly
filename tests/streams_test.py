@@ -14,6 +14,7 @@ from tap_xactly.streams import (
     XcCreditAdjustment,
     XcCreditHeld,
     XcQuota,
+    XcQuotaAssignment,
     XcCreditTotals,
     STREAMS,
 )
@@ -101,6 +102,12 @@ def xc_credit_totals_obj(client, state, catalog):
 def xc_quota_obj(client, state, catalog):
     stream = catalog.get_stream(XcQuota.tap_stream_id)
     return XcQuota(client, state, stream)
+
+
+@pytest.fixture
+def xc_quota_assignment_obj(client, state, catalog):
+    stream = catalog.get_stream(XcQuotaAssignment.tap_stream_id)
+    return XcQuotaAssignment(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -293,3 +300,14 @@ def test_xc_quota(xc_quota_obj):
 
     assert "xc_quota" in STREAMS
     assert STREAMS["xc_quota"] == XcQuota
+
+
+def test_xc_quota_assignment(xc_quota_assignment_obj):
+    assert xc_quota_assignment_obj.tap_stream_id == "xc_quota_assignment"
+    assert xc_quota_assignment_obj.key_properties == ["QUOTA_ASSIGNMENT_ID"]
+    assert xc_quota_assignment_obj.object_type == "XC_QUOTA_ASSIGNMENT"
+    assert xc_quota_assignment_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_quota_assignment_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_quota_assignment" in STREAMS
+    assert STREAMS["xc_quota_assignment"] == XcQuotaAssignment
