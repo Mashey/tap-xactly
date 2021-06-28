@@ -99,6 +99,14 @@ class XcPosRelationsHist(IncrementalStream):  # pylint: disable=too-few-public-m
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosition(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_position"
+    key_properties = ["POSITION_ID"]
+    object_type = "XC_POSITION"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcPosTitleAssignment(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_pos_title_assignment"
     key_properties = ["POS_TITLE_ASSIGNMENT_ID"]
@@ -150,4 +158,5 @@ STREAMS = {
     "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
     "xc_credit": XcCredit,
     "xc_credit_adjustment": XcCreditAdjustment,
+    "xc_position": XcPosition,
 }
