@@ -16,6 +16,7 @@ from tap_xactly.streams import (
     XcCreditAdjustment,
     XcCreditHeld,
     XcQuota,
+    XcQuotaHist,
     XcQuotaAssignment,
     XcQuotaAssignmentHist,
     XcCreditTotals,
@@ -106,6 +107,12 @@ def xc_credit_totals_obj(client, state, catalog):
 def xc_quota_obj(client, state, catalog):
     stream = catalog.get_stream(XcQuota.tap_stream_id)
     return XcQuota(client, state, stream)
+
+
+@pytest.fixture
+def xc_quota_hist_obj(client, state, catalog):
+    stream = catalog.get_stream(XcQuotaHist.tap_stream_id)
+    return XcQuotaHist(client, state, stream)
 
 
 @pytest.fixture
@@ -328,6 +335,17 @@ def test_xc_quota(xc_quota_obj):
 
     assert "xc_quota" in STREAMS
     assert STREAMS["xc_quota"] == XcQuota
+
+
+def test_xc_quota_hist(xc_quota_hist_obj):
+    assert xc_quota_hist_obj.tap_stream_id == "xc_quota_hist"
+    assert xc_quota_hist_obj.key_properties == ["QUOTA_ID"]
+    assert xc_quota_hist_obj.object_type == "XC_QUOTA_HIST"
+    assert xc_quota_hist_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_quota_hist_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_quota_hist" in STREAMS
+    assert STREAMS["xc_quota_hist"] == XcQuotaHist
 
 
 def test_xc_credit_type(xc_credit_type_obj):
