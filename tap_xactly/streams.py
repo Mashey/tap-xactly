@@ -206,6 +206,16 @@ class XcQuotaAssignment(IncrementalStream):  # pylint: disable=too-few-public-me
     replication_key = "MODIFIED_DATE"
 
 
+class XcQuotaAssignmentHist(
+    IncrementalStream
+):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_quota_assignment_hist"
+    key_properties = ["QUOTA_ASSIGNMENT_ID"]
+    object_type = "XC_QUOTA_ASSIGNMENT_HIST"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcPosHierarchy(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_pos_hierarchy"
     key_properties = ["POS_HIERARCHY_ID"]
@@ -247,6 +257,7 @@ STREAMS = {
     "xc_quota": XcQuota,
     "xc_credit_type": XcCreditType,
     "xc_quota_assignment": XcQuotaAssignment,
+    "xc_quota_assignment_hist": XcQuotaAssignmentHist,
     "xc_pos_hierarchy": XcPosHierarchy,
     "xc_pos_hierarchy_hist": XcPosHierarchyHist,
     "xc_pos_hierarchy_type": XcPosHierarchytype,
