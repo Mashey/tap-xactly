@@ -190,6 +190,14 @@ class XcQuota(IncrementalStream):  # pylint: disable=too-few-public-methods
     replication_key = "MODIFIED_DATE"
 
 
+class XcCreditType(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_credit_type"
+    key_properties = ["CREDIT_TYPE_ID"]
+    object_type = "XC_CREDIT_TYPE"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcQuotaAssignment(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_quota_assignment"
     key_properties = ["QUOTA_ASSIGNMENT_ID"]
@@ -213,5 +221,6 @@ STREAMS = {
     "xc_credit_totals": XcCreditTotals,
     "xc_position_hist": XcPositionHist,
     "xc_quota": XcQuota,
+    "xc_credit_type": XcCreditType,
     "xc_quota_assignment": XcQuotaAssignment,
 }
