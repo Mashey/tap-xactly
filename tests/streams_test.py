@@ -5,6 +5,7 @@ from tap_xactly.streams import (
     XcPosRelations,
     XcPosRelationsHist,
     XcPosTitleAssignment,
+    XcPosTitleAssignmentHist,
     XcAttainmentMeasure,
     XcAttainmentMeasureCriteria,
     STREAMS,
@@ -33,6 +34,12 @@ def xc_pos_relations_hist_obj(client, state, catalog):
 def xc_pos_title_assignment_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosTitleAssignment.tap_stream_id)
     return XcPosTitleAssignment(client, state, stream)
+
+
+@pytest.fixture
+def xc_pos_title_assignment_hist_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosTitleAssignmentHist.tap_stream_id)
+    return XcPosTitleAssignmentHist(client, state, stream)
 
 
 @pytest.fixture
@@ -152,6 +159,42 @@ def test_xc_pos_title_assignment(xc_pos_title_assignment_obj):
     for record in records:
         assert "POS_TITLE_ASSIGNMENT_ID" in record
         assert "VERSION" in record
+        assert "TITLE_ID" in record
+        assert "TITLE_NAME" in record
+        assert "POSITION_ID" in record
+        assert "POSITION_NAME" in record
+        assert "IS_ACTIVE" in record
+        assert "CREATED_DATE" in record
+        assert "CREATED_BY_ID" in record
+        assert "CREATED_BY_NAME" in record
+        assert "MODIFIED_DATE" in record
+        assert "MODIFIED_BY_ID" in record
+        assert "MODIFIED_BY_NAME" in record
+
+
+def test_xc_pos_title_assignment_hist(xc_pos_title_assignment_hist_obj):
+    assert (
+        xc_pos_title_assignment_hist_obj.tap_stream_id == "xc_pos_title_assignment_hist"
+    )
+    assert xc_pos_title_assignment_hist_obj.key_properties == [
+        "POS_TITLE_ASSIGNMENT_ID"
+    ]
+    assert (
+        xc_pos_title_assignment_hist_obj.object_type == "XC_POS_TITLE_ASSIGNMENT_HIST"
+    )
+    assert xc_pos_title_assignment_hist_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_pos_title_assignment_hist_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_pos_title_assignment_hist" in STREAMS
+    assert STREAMS["xc_pos_title_assignment_hist"] == XcPosTitleAssignmentHist
+
+    records = list(xc_pos_title_assignment_hist_obj.sync())
+    assert len(records) > 0
+
+    for record in records:
+        assert "POS_TITLE_ASSIGNMENT_ID" in record
+        assert "VERSION" in record
+        assert "OBJECT_ID" in record
         assert "TITLE_ID" in record
         assert "TITLE_NAME" in record
         assert "POSITION_ID" in record

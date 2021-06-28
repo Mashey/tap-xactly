@@ -103,6 +103,16 @@ class XcPosTitleAssignment(IncrementalStream):  # pylint: disable=too-few-public
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosTitleAssignmentHist(
+    IncrementalStream
+):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_pos_title_assignment_hist"
+    key_properties = ["POS_TITLE_ASSIGNMENT_ID"]
+    object_type = "XC_POS_TITLE_ASSIGNMENT_HIST"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcAttainmentMeasure(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_attainment_measure"
     key_properties = ["ATTAINMENT_MEASURE_ID"]
@@ -126,6 +136,7 @@ STREAMS = {
     "xc_pos_relations": XcPosRelations,
     "xc_pos_relations_hist": XcPosRelationsHist,
     "xc_pos_title_assignment": XcPosTitleAssignment,
+    "xc_pos_title_assignment_hist": XcPosTitleAssignmentHist,
     "xc_attainment_measure": XcAttainmentMeasure,
     "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
 }
