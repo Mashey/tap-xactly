@@ -190,6 +190,14 @@ class XcQuota(IncrementalStream):  # pylint: disable=too-few-public-methods
     replication_key = "MODIFIED_DATE"
 
 
+class XcQuotaHist(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_quota_hist"
+    key_properties = ["QUOTA_ID"]
+    object_type = "XC_QUOTA_HIST"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 class XcCreditType(IncrementalStream):  # pylint: disable=too-few-public-methods
     tap_stream_id = "xc_credit_type"
     key_properties = ["CREDIT_TYPE_ID"]
@@ -240,6 +248,14 @@ class XcPosHierarchyHist(IncrementalStream):  # pylint: disable=too-few-public-m
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosHierarchytype(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_pos_hierarchy_type"
+    key_properties = ["POS_HIERARCHY_TYPE_ID"]
+    object_type = "XC_POS_HIERARCHY_TYPE"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
@@ -255,10 +271,12 @@ STREAMS = {
     "xc_credit_totals": XcCreditTotals,
     "xc_position_hist": XcPositionHist,
     "xc_quota": XcQuota,
+    "xc_quota_hist": XcQuotaHist,
     "xc_credit_type": XcCreditType,
     "xc_quota_assignment": XcQuotaAssignment,
     "xc_quota_assignment_hist": XcQuotaAssignmentHist,
     "xc_quota_relationship": XcQuotaRelationship,
     "xc_pos_hierarchy": XcPosHierarchy,
     "xc_pos_hierarchy_hist": XcPosHierarchyHist,
+    "xc_pos_hierarchy_type": XcPosHierarchytype,
 }
