@@ -22,32 +22,35 @@ class Stream:  # pylint: disable=too-few-public-methods
         self.state = state
         self.schema = stream.schema.to_dict()
         self.metadata = metadata.to_map(stream.metadata)
+        self.bookmark_date = "1970-01-11T00:00:01Z"
+        self.last_primary = 0
 
     def sync(self):
-        bookmark_value = singer.get_bookmark(
+        bookmark = singer.get_bookmark(
             self.state,
             self.tap_stream_id,
             self.replication_key,
-            "1970-01-11T00:00:01Z",
+            self.bookmark_date,
         )
-        offset = 0
+
         last_query_record_count = self.limit
         while last_query_record_count >= self.limit:
             try:
                 record_count = 0
                 records = self.client.query_database(
-                    self.tap_stream_id,
+                    table_name=self.tap_stream_id,
                     limit=self.limit,
-                    offset=offset,
                     primary_key=self.key_properties[0],
-                    limit_key=self.replication_key,
-                    limit_key_value=bookmark_value,
+                    bkmrk_primary_key=self.last_primary,
+                    replication_key=self.replication_key,
+                    bkmrk_date=bookmark,
                 )
                 for record in records:
+                    self.bookmark_date = record["MODIFIED_DATE"]
+                    self.last_primary = record[self.key_properties[0]]
                     record_count += 1
                     yield record
 
-                offset += self.limit
                 last_query_record_count = record_count
 
             except Exception as ex:  # pylint: disable=broad-except
@@ -131,6 +134,14 @@ class XcAttainmentMeasureCriteria(
     replication_key = "MODIFIED_DATE"
 
 
+class XcCredit(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_credit"
+    key_properties = ["CREDIT_ID"]
+    object_type = "XC_CREDIT"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
@@ -139,4 +150,5 @@ STREAMS = {
     "xc_pos_title_assignment_hist": XcPosTitleAssignmentHist,
     "xc_attainment_measure": XcAttainmentMeasure,
     "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
+    "xc_credit": XcCredit,
 }
