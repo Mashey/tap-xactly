@@ -166,6 +166,14 @@ class XcCreditAdjustment(IncrementalStream):  # pylint: disable=too-few-public-m
     replication_key = "MODIFIED_DATE"
 
 
+class XcCreditHeld(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_credit_held"
+    key_properties = ["CREDIT_HELD_ID"]
+    object_type = "XC_CREDIT_HELD"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
@@ -176,6 +184,7 @@ STREAMS = {
     "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
     "xc_credit": XcCredit,
     "xc_credit_adjustment": XcCreditAdjustment,
+    "xc_credit_held": XcCreditHeld,
     "xc_position": XcPosition,
     "xc_position_hist": XcPositionHist,
 }
