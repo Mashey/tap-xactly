@@ -5,6 +5,7 @@ from tap_xactly.streams import (
     XcPosHierarchyHist,
     XcPosHierarchyType,
     XcPosHierarchyTypeHist,
+    XcPosPartAssignment,
     XcPosRelTypeHist,
     XcPosRelations,
     XcPosRelationsHist,
@@ -164,6 +165,12 @@ def xc_pos_hierarchy_type_obj(client, state, catalog):
 def xc_pos_hierarchy_type_hist_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosHierarchyTypeHist.tap_stream_id)
     return XcPosHierarchyTypeHist(client, state, stream)
+
+
+@pytest.fixture
+def xc_pos_part_assignment_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosPartAssignment.tap_stream_id)
+    return XcPosPartAssignment(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -455,3 +462,14 @@ def test_xc_pos_hierarchy_type_hist(xc_pos_hierarchy_type_hist_obj):
 
     assert "xc_pos_hierarchy_type_hist" in STREAMS
     assert STREAMS["xc_pos_hierarchy_type_hist"] == XcPosHierarchyTypeHist
+
+
+def test_xc_pos_part_assignment(xc_pos_part_assignment_obj):
+    assert xc_pos_part_assignment_obj.tap_stream_id == "xc_pos_part_assignment"
+    assert xc_pos_part_assignment_obj.key_properties == ["POS_PART_ASSIGNMENT_ID"]
+    assert xc_pos_part_assignment_obj.object_type == "XC_POS_PART_ASSIGNMENT"
+    assert xc_pos_part_assignment_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_pos_part_assignment_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_pos_part_assignment" in STREAMS
+    assert STREAMS["xc_pos_part_assignment"] == XcPosPartAssignment
