@@ -292,6 +292,14 @@ class XcPosPartAssignmentHist(
     replication_key = "MODIFIED_DATE"
 
 
+class XcPosRelType(IncrementalStream):  # pylint: disable=too-few-public-methods
+    tap_stream_id = "xc_pos_rel_type"
+    key_properties = ["POS_REL_TYPE_ID"]
+    object_type = "XC_POS_REL_TYPE"
+    valid_replication_keys = ["MODIFIED_DATE"]
+    replication_key = "MODIFIED_DATE"
+
+
 STREAMS = {
     "xc_pos_rel_type_hist": XcPosRelTypeHist,
     "xc_pos_relations": XcPosRelations,
@@ -319,4 +327,5 @@ STREAMS = {
     "xc_pos_hierarchy_type_hist": XcPosHierarchyTypeHist,
     "xc_pos_part_assignment": XcPosPartAssignment,
     "xc_pos_part_assignment_hist": XcPosPartAssignmentHist,
+    "xc_pos_rel_type": XcPosRelType,
 }
