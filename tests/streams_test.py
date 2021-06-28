@@ -28,6 +28,7 @@ from tap_xactly.streams import (
     XcQuotaTotals,
     XcCreditTotals,
     XcCreditType,
+    XcRole,
     STREAMS,
 )
 
@@ -192,6 +193,12 @@ def xc_pos_part_assignment_hist_obj(client, state, catalog):
 def xc_pos_rel_type_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosRelType.tap_stream_id)
     return XcPosRelType(client, state, stream)
+
+
+@pytest.fixture
+def xc_role_obj(client, state, catalog):
+    stream = catalog.get_stream(XcRole.tap_stream_id)
+    return XcRole(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -529,3 +536,14 @@ def test_xc_pos_rel_type(xc_pos_rel_type_obj):
 
     assert "xc_pos_rel_type_hist" in STREAMS
     assert STREAMS["xc_pos_rel_type"] == XcPosRelType
+
+
+def test_xc_role(xc_role_obj):
+    assert xc_role_obj.tap_stream_id == "xc_role"
+    assert xc_role_obj.key_properties == ["ROLE_ID"]
+    assert xc_role_obj.object_type == "XC_ROLE"
+    assert xc_role_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_role_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_role" in STREAMS
+    assert STREAMS["xc_role"] == XcRole
