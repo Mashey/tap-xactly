@@ -11,6 +11,7 @@ LOGGER = singer.get_logger()
 def sync(config, state, catalog):
     sync_metrics = {"total_records": [], "stream_rps": []}
     client = XactlyClient(config)
+    client.setup_connection()
 
     with Transformer() as transformer:
         for catalog_stream in catalog.get_selected_streams(state):
