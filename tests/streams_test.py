@@ -5,6 +5,7 @@ from tap_xactly.streams import (
     XcPosRelations,
     XcPosRelationsHist,
     XcPosition,
+    XcPositionHist,
     XcPosTitleAssignment,
     XcPosTitleAssignmentHist,
     XcAttainmentMeasure,
@@ -32,6 +33,12 @@ def xc_pos_relations_obj(client, state, catalog):
 def xc_position_obj(client, state, catalog):
     stream = catalog.get_stream(XcPosition.tap_stream_id)
     return XcPosition(client, state, stream)
+
+
+@pytest.fixture
+def xc_position_hist_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPositionHist.tap_stream_id)
+    return XcPositionHist(client, state, stream)
 
 
 @pytest.fixture
@@ -152,6 +159,17 @@ def test_xc_position(xc_position_obj):
     assert xc_position_obj.object_type == "XC_POSITION"
     assert xc_position_obj.valid_replication_keys == ["MODIFIED_DATE"]
     assert xc_position_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_position" in STREAMS
+    assert STREAMS["xc_position"] == XcPosition
+
+
+def test_xc_position_hist(xc_position_hist_obj):
+    assert xc_position_hist_obj.tap_stream_id == "xc_position_hist"
+    assert xc_position_hist_obj.key_properties == ["POSITION_ID"]
+    assert xc_position_hist_obj.object_type == "XC_POSITION_HIST"
+    assert xc_position_hist_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_position_hist_obj.replication_key == "MODIFIED_DATE"
 
     assert "xc_position" in STREAMS
     assert STREAMS["xc_position"] == XcPosition
