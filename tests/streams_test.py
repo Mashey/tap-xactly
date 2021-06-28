@@ -1,6 +1,7 @@
 # pylint: disable=redefined-outer-name
 import pytest
 from tap_xactly.streams import (
+    XcPosHierarchy,
     XcPosRelTypeHist,
     XcPosRelations,
     XcPosRelationsHist,
@@ -115,6 +116,12 @@ def xc_credit_type_obj(client, state, catalog):
 def xc_quota_assignment_obj(client, state, catalog):
     stream = catalog.get_stream(XcQuotaAssignment.tap_stream_id)
     return XcQuotaAssignment(client, state, stream)
+
+
+@pytest.fixture
+def xc_pos_hierarchy_obj(client, state, catalog):
+    stream = catalog.get_stream(XcPosHierarchy.tap_stream_id)
+    return XcPosHierarchy(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -329,3 +336,14 @@ def test_xc_quota_assignment(xc_quota_assignment_obj):
 
     assert "xc_quota_assignment" in STREAMS
     assert STREAMS["xc_quota_assignment"] == XcQuotaAssignment
+
+
+def test_xc_pos_hierarchy(xc_pos_hierarchy_obj):
+    assert xc_pos_hierarchy_obj.tap_stream_id == "xc_pos_hierarchy"
+    assert xc_pos_hierarchy_obj.key_properties == ["POS_HIERARCHY_ID"]
+    assert xc_pos_hierarchy_obj.object_type == "XC_POS_HIERARCHY"
+    assert xc_pos_hierarchy_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_pos_hierarchy_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_pos_hierarchy" in STREAMS
+    assert STREAMS["xc_pos_hierarchy"] == XcPosHierarchy
