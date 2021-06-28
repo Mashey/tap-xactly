@@ -8,6 +8,7 @@ from tap_xactly.streams import (
     XcAttainmentMeasure,
     XcAttainmentMeasureCriteria,
     XcCredit,
+    XcCreditAdjustment,
     STREAMS,
 )
 
@@ -52,6 +53,12 @@ def xc_attainment_measure_criteria_obj(client, state, catalog):
 def xc_credit_obj(client, state, catalog):
     stream = catalog.get_stream(XcCredit.tap_stream_id)
     return XcCredit(client, state, stream)
+
+
+@pytest.fixture
+def xc_credit_adjustment_obj(client, state, catalog):
+    stream = catalog.get_stream(XcCreditAdjustment.tap_stream_id)
+    return XcCreditAdjustment(client, state, stream)
 
 
 def test_xc_pos_rel_type_hist(xc_pos_rel_type_hist_obj):
@@ -158,3 +165,16 @@ def test_xc_credit(xc_credit_obj):
 
     assert "xc_credit" in STREAMS
     assert STREAMS["xc_credit"] == XcCredit
+
+
+def test_xc_credit_adjustment(
+    xc_credit_adjustment_obj,
+):
+    assert xc_credit_adjustment_obj.tap_stream_id == "xc_credit_adjustment"
+    assert xc_credit_adjustment_obj.key_properties == ["CREDIT_ID"]
+    assert xc_credit_adjustment_obj.object_type == "XC_CREDIT_ADJUSTMENT"
+    assert xc_credit_adjustment_obj.valid_replication_keys == ["MODIFIED_DATE"]
+    assert xc_credit_adjustment_obj.replication_key == "MODIFIED_DATE"
+
+    assert "xc_credit_adjustment" in STREAMS
+    assert STREAMS["xc_credit_adjustment"] == XcCreditAdjustment
