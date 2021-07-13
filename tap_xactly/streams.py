@@ -60,8 +60,6 @@ class Stream:  # pylint: disable=too-few-public-methods
                 self.client.setup_connection()
                 continue
 
-        self.client.close_connection()
-
         LOGGER.info(f"{self.tap_stream_id} sync completed.")
         LOGGER.info(f"Creating bookmark for {self.tap_stream_id} stream")
 
