@@ -1,8 +1,8 @@
 [tool.poetry]
 name = "tap-xactly"
-version = "0.3.0"
+version = "1.1.0"
 description = "A Singer Tap by Mashey"
-authors = ["Steven <steven.a.anderson2012@gmail.com>"]
+authors = ["Steven <steven@mashey.com>", "Michael <michael@mashey.com>"]
 packages = [
     { include = "tap_xactly" }
 ]
