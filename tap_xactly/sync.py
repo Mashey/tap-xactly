@@ -66,6 +66,8 @@ def sync(config, state, catalog):
             singer.write_bookmark(state, stream.tap_stream_id, "metrics", info)
             singer.write_state(state)
 
+    client.close_connection()
+
     state = singer.set_currently_syncing(state, None)
     LOGGER.info(
         f"""

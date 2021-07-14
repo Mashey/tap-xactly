@@ -1,9 +1,10 @@
 from typing import List, Dict
+from pathlib import Path
 import jaydebeapi
 from jaydebeapi import Connection
-
-
 import singer
+from tap_xactly.utils import get_abs_path
+
 
 LOGGER = singer.get_logger()
 
@@ -18,12 +19,14 @@ class XactlyClient:
         self._sql = None
 
     def setup_connection(self) -> Connection:
+        current_path = get_abs_path("")
+        tap_path = Path(current_path).parent
         self._client = jaydebeapi.connect(
             "com.xactly.connect.jdbc.Driver",
             "jdbc:xactly://api.xactlycorp.com:443/api?"
             + f"sslVerifyServer=true&clientId={self._client_id}&consumer={self._consumer}",
             [self._user, self._password],
-            "./xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar",
+            f"{tap_path.as_posix()}/xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar",
         )
         self._sql = self._client.cursor()
 

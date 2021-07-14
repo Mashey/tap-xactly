@@ -14,7 +14,7 @@ class Stream:  # pylint: disable=too-few-public-methods
     valid_replication_keys = [""]
     replication_key = "last_updated_at"
     object_type = ""
-    limit = 1000
+    limit = 10000
     selected = True
 
     def __init__(self, client: XactlyClient, state: dict, stream):
@@ -59,8 +59,6 @@ class Stream:  # pylint: disable=too-few-public-methods
                 LOGGER.info("Restarting Client")
                 self.client.setup_connection()
                 continue
-
-        self.client.close_connection()
 
         LOGGER.info(f"{self.tap_stream_id} sync completed.")
         LOGGER.info(f"Creating bookmark for {self.tap_stream_id} stream")
@@ -314,8 +312,8 @@ STREAMS = {
     "xc_pos_relations_hist": XcPosRelationsHist,
     "xc_pos_title_assignment": XcPosTitleAssignment,
     "xc_pos_title_assignment_hist": XcPosTitleAssignmentHist,
-    "xc_attainment_measure": XcAttainmentMeasure,
-    "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
+    # "xc_attainment_measure": XcAttainmentMeasure,
+    # "xc_attainment_measure_criteria": XcAttainmentMeasureCriteria,
     "xc_credit": XcCredit,
     "xc_credit_adjustment": XcCreditAdjustment,
     "xc_credit_held": XcCreditHeld,
