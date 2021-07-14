@@ -6,6 +6,7 @@ authors = ["Steven <steven.a.anderson2012@gmail.com>"]
 packages = [
     { include = "tap_xactly" }
 ]
+include = ["xjdbc-1.8.0-RELEASE-jar-with-dependencies.jar"]
 
 [tool.poetry.dependencies]
 python = "^3.8"
