@@ -1,13 +1,9 @@
 import json
-import os
 
 from singer import metadata
 from singer.catalog import Catalog
 from tap_xactly.streams import STREAMS
-
-
-def get_abs_path(path):
-    return os.path.join(os.path.dirname(os.path.realpath(__file__)), path)
+from tap_xactly.utils import get_abs_path
 
 
 def get_schemas():
