@@ -304,36 +304,36 @@ def test_xc_pos_title_assignment_hist(xc_pos_title_assignment_hist_obj):
     assert STREAMS["xc_pos_title_assignment_hist"] == XcPosTitleAssignmentHist
 
 
-def test_xc_attainment_measure(xc_attainment_measure_obj):
-    assert xc_attainment_measure_obj.tap_stream_id == "xc_attainment_measure"
-    assert xc_attainment_measure_obj.key_properties == ["ATTAINMENT_MEASURE_ID"]
-    assert xc_attainment_measure_obj.object_type == "XC_ATTAINMENT_MEASURE"
-    assert xc_attainment_measure_obj.valid_replication_keys == ["MODIFIED_DATE"]
-    assert xc_attainment_measure_obj.replication_key == "MODIFIED_DATE"
+# def test_xc_attainment_measure(xc_attainment_measure_obj):
+#     assert xc_attainment_measure_obj.tap_stream_id == "xc_attainment_measure"
+#     assert xc_attainment_measure_obj.key_properties == ["ATTAINMENT_MEASURE_ID"]
+#     assert xc_attainment_measure_obj.object_type == "XC_ATTAINMENT_MEASURE"
+#     assert xc_attainment_measure_obj.valid_replication_keys == ["MODIFIED_DATE"]
+#     assert xc_attainment_measure_obj.replication_key == "MODIFIED_DATE"
 
-    assert "xc_attainment_measure" in STREAMS
-    assert STREAMS["xc_attainment_measure"] == XcAttainmentMeasure
+#     assert "xc_attainment_measure" in STREAMS
+#     assert STREAMS["xc_attainment_measure"] == XcAttainmentMeasure
 
 
-def test_xc_attainment_measure_criteria(xc_attainment_measure_criteria_obj):
-    assert (
-        xc_attainment_measure_criteria_obj.tap_stream_id
-        == "xc_attainment_measure_criteria"
-    )
-    assert xc_attainment_measure_criteria_obj.key_properties == [
-        "ATTAINMENT_MEASURE_CRITERIA_ID"
-    ]
-    assert (
-        xc_attainment_measure_criteria_obj.object_type
-        == "XC_ATTAINMENT_MEASURE_CRITERIA"
-    )
-    assert xc_attainment_measure_criteria_obj.valid_replication_keys == [
-        "MODIFIED_DATE"
-    ]
-    assert xc_attainment_measure_criteria_obj.replication_key == "MODIFIED_DATE"
+# def test_xc_attainment_measure_criteria(xc_attainment_measure_criteria_obj):
+#     assert (
+#         xc_attainment_measure_criteria_obj.tap_stream_id
+#         == "xc_attainment_measure_criteria"
+#     )
+#     assert xc_attainment_measure_criteria_obj.key_properties == [
+#         "ATTAINMENT_MEASURE_CRITERIA_ID"
+#     ]
+#     assert (
+#         xc_attainment_measure_criteria_obj.object_type
+#         == "XC_ATTAINMENT_MEASURE_CRITERIA"
+#     )
+#     assert xc_attainment_measure_criteria_obj.valid_replication_keys == [
+#         "MODIFIED_DATE"
+#     ]
+#     assert xc_attainment_measure_criteria_obj.replication_key == "MODIFIED_DATE"
 
-    assert "xc_attainment_measure_criteria" in STREAMS
-    assert STREAMS["xc_attainment_measure_criteria"] == XcAttainmentMeasureCriteria
+#     assert "xc_attainment_measure_criteria" in STREAMS
+#     assert STREAMS["xc_attainment_measure_criteria"] == XcAttainmentMeasureCriteria
 
 
 def test_xc_credit(xc_credit_obj):
