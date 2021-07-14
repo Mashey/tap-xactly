@@ -46,7 +46,7 @@ class XactlyClient:
         table_name: str,
         limit: int,
         primary_key: str,
-        bkmrk_primary_key: int,
+        bkmrk_primary,
         replication_key: str,
         bkmrk_date: str,
     ) -> List[Dict]:
@@ -57,7 +57,7 @@ class XactlyClient:
         self._sql.execute(
             "SELECT * "
             + f"FROM {table_name} "
-            + f"WHERE {replication_key} >= '{bkmrk_date}' AND {primary_key} > {bkmrk_primary_key} "
+            + f"WHERE {replication_key} >= '{bkmrk_date}' AND {primary_key} > '{bkmrk_primary}' "
             + f"ORDER BY {replication_key}, {primary_key} "
             + f"LIMIT {limit}"
         )
