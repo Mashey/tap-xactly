@@ -14,7 +14,7 @@ class Stream:  # pylint: disable=too-few-public-methods
     valid_replication_keys = [""]
     replication_key = "last_updated_at"
     object_type = ""
-    limit = 1000
+    limit = 10000
     selected = True
 
     def __init__(self, client: XactlyClient, state: dict, stream):
